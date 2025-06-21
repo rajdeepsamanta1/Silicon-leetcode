@@ -1,4 +1,3 @@
-
 `include "config_leetcode.vh"
 
 module bubble_sort(
@@ -6,18 +5,26 @@ input wire clk,
 input wire rst,
 input wire wr_en,
 input wire rd_en,
-input wire [DATA_WIDTH-1:0]datain,
-output reg [DATA_WIDTH-1:0]dataout,
+input wire [`DATA_WIDTH-1:0]datain,
+output reg [`DATA_WIDTH-1:0]dataout,
 output reg done);
 
-reg [$clog2(NUM_DATA):0]wr_count;
-reg [$clog2(NUM_DATA):0]rd_count;
+// counters for writing to and reading from the array
 
-reg [$clog2(NUM_DATA):0]i;
-reg [$clog2(NUM_DATA):0]j;
+reg [$clog2(`NUM_DATA):0]wr_count;
+reg [$clog2(`NUM_DATA):0]rd_count;
 
-reg [DATA_WIDTH-1:0]buff[0:NUM_DATA-1];
+// i and j are index of the array 
 
+reg [$clog2(`NUM_DATA):0]i;
+reg [$clog2(`NUM_DATA):0]j;
+
+reg [DATA_WIDTH-1:0]buff[0:`NUM_DATA-1];
+
+// assert rd_en when you want to start computation
+// done will be asserted when sorting is done
+// data from the array will be at the output port at each 
+// pulse after done is asserted
 
 always @(posedge clk)
 begin
@@ -42,13 +49,13 @@ begin
          begin   
              j<=j+1;
              
-             if(j==NUM_DATA-2-i)
+             if(j==`NUM_DATA-2-i)
              begin
                 j<=0;
                 i<=i+1;
              end
              
-             if(i==NUM_DATA-2)
+             if(i==`NUM_DATA-2)
                 done<=1;
              
              if(buff[j]>buff[j+1])

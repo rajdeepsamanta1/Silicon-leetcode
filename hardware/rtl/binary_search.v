@@ -35,14 +35,12 @@ assign dataout=buff[index];
 
 always @(posedge clk)
 begin
-
      if(rst)
      begin      
          wr_count<=0;        
          low_index<=0;
          high_index<=`NUM_DATA-1;
      end
-     
      
      else
      begin
@@ -64,7 +62,6 @@ begin
              done<=1;             
          end         
      end
-
 end
 
 

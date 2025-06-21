@@ -1,6 +1,6 @@
 `include "config_leetcode.vh"
 
-module leetcode35(
+module binary_search(
 input wire clk,
 input wire rst,
 input wire wr_en,
